@@ -1,0 +1,46 @@
+.Navbar {
+  width: 100%;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0px 10px 20px -15px #c1c1c190;
+  padding: 1rem 2rem;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  .title {
+    font-weight: bold;
+    letter-spacing: 8px;
+    font-size: xx-large;
+    color: #666666;
+  }
+  .right-sec {
+    display: flex;
+    justify-content: end;
+    max-width: 600px;
+    width: 100%;
+    .search-here {
+      max-width: 400px;
+      width: 100%;
+      margin: 0 1rem;
+    }
+    .language {
+      max-width: 120px;
+      width: 100%;
+      margin: 0 auto;
+      .language-select {
+        width: 100%;
+      }
+    }
+    @media (max-width: 450px) {
+      flex-direction: column;
+      justify-content: center;
+      .search-here {
+        margin: 1rem 0;
+      }
+    }
+  }
+}
