@@ -1,5 +1,6 @@
 import { message } from "antd";
-import { getNews } from "../../../../api/home";
+import { getNews, getWeather } from "../../../../api/home";
+import { getLocation } from "../../../common/functions/getLocation";
 import { getStorage, setStorage } from "../../../common/functions/storage";
 
 const actions = {
@@ -29,15 +30,25 @@ const actions = {
     (page) =>
     async ({ setState, getState }) => {
       try {
-        setState({ isLoading: true });
+        // initial loading when page number is 1
+        if (page === 1) {
+          setState({ isLoading: true });
+        }
 
         const endpoint = getState().newsEndPoint;
         const lang = getState().language;
         const prevNews = getState().allNews;
 
         const res = await getNews(endpoint, { lang, page });
-        setState({ allNews: [...prevNews, ...res?.articles] });
-        setState({ isLoading: false });
+
+        if (page === 1) {
+          //when page is 1 then store the fetched data only
+          setState({ allNews: [...res?.articles] });
+          setState({ isLoading: false });
+        } else {
+          //when page is not 1 then store the prev news along with new news
+          setState({ allNews: [...prevNews, ...res?.articles] });
+        }
       } catch (error) {
         setState({ isLoading: false });
         message.error(error?.data?.errors[0]);
@@ -46,12 +57,31 @@ const actions = {
   //fetch more news after scroll action
   fetchMoreNews:
     () =>
-    ({ setState, getState }) => {
+    ({ setState, getState, dispatch }) => {
+      // call get news function on scroll with a delay of 1.5s
       setTimeout(() => {
-        let page = getState().page;
-        getNews(page + 1);
-        setState({ page: page + 1 });
+        let page = getState().page; //get current page number
+        dispatch(actions.getNews(page + 1));
+        setState({ page: page + 1 }); //increment page number
       }, 1500);
+    },
+  //get location of user
+  getLocation:
+    () =>
+    async ({ setState, dispatch }) => {
+      //get user lat and lon
+      const loc = await getLocation();
+      setState({ currentLocation: loc });
+      //dispatch get weather function
+      dispatch(actions.getWeather(loc));
+    },
+  //get weather info from current coordinates
+  getWeather:
+    (loc) =>
+    async ({ setState }) => {
+      //calling openweather api
+      const res = await getWeather(loc);
+      setState({ weather: res });
     },
 };
 export default actions;

@@ -4,6 +4,8 @@ const initialState = {
   page: 1,
   language: "",
   newsEndPoint: "top-headlines",
+  currentLocation: null,
+  weather: null,
 };
 
 export default initialState;

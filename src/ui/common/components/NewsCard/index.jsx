@@ -7,6 +7,7 @@ import { NewsCardWrapper } from "./style.js";
 const NewsCard = ({ news }) => {
   return (
     <NewsCardWrapper>
+      {/* pass news data to NEWS_EXPANDED route */}
       <Link to={routes.NEWS_EXPANDED} state={news}>
         <div className="image-con">
           <img src={news?.image} alt="news_image" />

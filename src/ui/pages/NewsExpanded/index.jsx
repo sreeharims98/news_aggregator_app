@@ -1,9 +1,14 @@
 import moment from "moment";
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { routes } from "../../common/routes";
 import "./style.scss";
 export const NewsExpanded = () => {
   const { state } = useLocation();
+
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
 
   return (
     <div className="NewsExpanded">

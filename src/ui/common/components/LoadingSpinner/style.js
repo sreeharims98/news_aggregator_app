@@ -5,4 +5,5 @@ export const LoadingWrapper = styled.div`
   align-items: center;
   justify-content: center;
   height: 50px;
+  margin: 0.5rem;
 `;
