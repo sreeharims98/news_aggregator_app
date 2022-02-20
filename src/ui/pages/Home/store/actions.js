@@ -1,6 +1,7 @@
 import { message } from "antd";
 import { getNews, getWeather } from "../../../../api/home";
 import { getLocation } from "../../../common/functions/getLocation";
+import { sortDate } from "../../../common/functions/sort";
 import { getStorage, setStorage } from "../../../common/functions/storage";
 
 const actions = {
@@ -43,7 +44,8 @@ const actions = {
 
         if (page === 1) {
           //when page is 1 then store the fetched data only
-          setState({ allNews: [...res?.articles] });
+          const sortedArray = sortDate(res?.articles);
+          setState({ allNews: [...sortedArray] });
           setState({ isLoading: false });
         } else {
           //when page is not 1 then store the prev news along with new news
@@ -65,6 +67,21 @@ const actions = {
         setState({ page: page + 1 }); //increment page number
       }, 1500);
     },
+  //search news by search query
+  onNewsSearch:
+    (data) =>
+    ({ setState, dispatch }) => {
+      setState({ newsEndPoint: `search?q=${data}` });
+      dispatch(actions.getNews(1));
+    },
+  //acton to goback to latest news from searched results
+  goBackToLatestNews:
+    () =>
+    ({ setState, dispatch }) => {
+      setState({ newsEndPoint: `top-headlines?` });
+      dispatch(actions.getNews(1));
+    },
+
   //get location of user
   getLocation:
     () =>
@@ -73,7 +90,9 @@ const actions = {
       const loc = await getLocation();
       setState({ currentLocation: loc });
       //dispatch get weather function
-      dispatch(actions.getWeather(loc));
+      if (loc?.lat && loc?.lon) {
+        dispatch(actions.getWeather(loc));
+      }
     },
   //get weather info from current coordinates
   getWeather:

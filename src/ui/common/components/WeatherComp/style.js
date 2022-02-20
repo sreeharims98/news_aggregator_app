@@ -93,7 +93,7 @@ export const WeatherCompWrapper = styled.div`
             font-size: larger;
             font-weight: lighter;
             img {
-              width: 10px;
+              width: 15px;
               margin-right: 0.4rem;
             }
           }

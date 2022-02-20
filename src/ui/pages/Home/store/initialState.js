@@ -3,7 +3,7 @@ const initialState = {
   allNews: [],
   page: 1,
   language: "",
-  newsEndPoint: "top-headlines",
+  newsEndPoint: "top-headlines?",
   currentLocation: null,
   weather: null,
 };

@@ -11,7 +11,8 @@ export const Navbar = () => {
   const { Option } = Select;
 
   //state management
-  const [{ language }, { getLanguage, setLanguage }] = useHomeStore();
+  const [{ language }, { getLanguage, setLanguage, onNewsSearch }] =
+    useHomeStore();
 
   useEffect(() => {
     //get language stored in session storage
@@ -27,7 +28,7 @@ export const Navbar = () => {
         <div className="search-here">
           <Search
             placeholder="Search for news"
-            // onSearch={onSearch}
+            onSearch={onNewsSearch}
             enterButton
           />
         </div>

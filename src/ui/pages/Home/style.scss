@@ -2,14 +2,16 @@
   display: flex;
   flex-direction: column;
   padding: 3rem 0;
-  .infinite-scroll-component {
-    overflow: hidden !important;
-  }
+
   .sub-title {
     font-size: x-large;
     font-weight: 500;
     margin-bottom: 2rem;
-  }
-  .home-con {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .goback {
+      cursor: pointer;
+    }
   }
 }

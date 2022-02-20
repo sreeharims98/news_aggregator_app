@@ -1,23 +1,23 @@
 import React, { useEffect } from "react";
 import "./style.scss";
-import NewsCard from "../../common/components/NewsCard";
 import { useHomeStore } from "./store";
-import { Col, Empty, Row } from "antd";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { Empty } from "antd";
 import { LoadingSpinner } from "../../common/components/LoadingSpinner";
 import WeatherComp from "../../common/components/WeatherComp";
+import NewsGrid from "../../common/components/NewsGrid";
+import InfiniteScrollComp from "../../common/components/InfiniteScrollComp";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   // state management
   const [
-    { isLoading, allNews, page, weather },
-    { getNews, fetchMoreNews, getLocation },
+    { isLoading, allNews, page, weather, newsEndPoint },
+    { getNews, fetchMoreNews, getLocation, goBackToLatestNews },
   ] = useHomeStore();
 
   useEffect(() => {
     //get all news action
     getNews(page);
-
     //get user location
     getLocation();
   }, []);
@@ -25,31 +25,34 @@ export const Home = () => {
   return (
     <div className="Home">
       {/* weather section */}
-      <div className="sub-title">Weather Report</div>
-      <WeatherComp weather={weather} />
+      {weather?.name && (
+        <>
+          <div className="sub-title">Weather report</div>
+          <WeatherComp weather={weather} />
+        </>
+      )}
       {/* latest news section */}
-      <div className="sub-title">Latest news</div>
+      <div className="sub-title">
+        {/* subtitle check */}
+        <span>
+          {newsEndPoint === "top-headlines?"
+            ? "Latest news"
+            : `Search results for ${newsEndPoint.split("=")[1]}`}
+        </span>
+        <span className="goback" onClick={goBackToLatestNews}>
+          {newsEndPoint !== "top-headlines?" && "Go back"}
+        </span>
+      </div>
       <div className="home-con">
         {/* loading component show on initial loading */}
         {isLoading ? (
           <LoadingSpinner />
         ) : allNews.length > 0 ? (
           //show infinite scroll component, if there is news
-          <InfiniteScroll
-            dataLength={allNews.length} //give total number of news
-            next={fetchMoreNews} // give function to call next set of news
-            hasMore={true} //used to stop calling the next function if there is no more data
-            loader={<LoadingSpinner />} //loader ui
-          >
-            {/* mapping all news using  grid */}
-            <Row gutter={[50, 100]}>
-              {allNews?.map((n, index) => (
-                <Col xs={24} sm={12} lg={8} key={index + n?.title}>
-                  <NewsCard news={n} />
-                </Col>
-              ))}
-            </Row>
-          </InfiniteScroll>
+          <InfiniteScrollComp data={allNews} next={fetchMoreNews}>
+            {/* news grid component */}
+            <NewsGrid data={allNews} />
+          </InfiniteScrollComp>
         ) : (
           //if no data, display empty component
           <Empty />

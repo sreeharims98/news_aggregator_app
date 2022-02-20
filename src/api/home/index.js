@@ -4,7 +4,7 @@ import { config } from "../config";
 //get news api (gnews api)
 export const getNews = (endpoint, params) => {
   return get(
-    `https://gnews.io/api/v4/${endpoint}?&token=${config.GNEWS_TOKEN}`,
+    `https://gnews.io/api/v4/${endpoint}&token=${config.GNEWS_TOKEN}`,
     params
   );
 };

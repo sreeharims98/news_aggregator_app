@@ -1,3 +1,5 @@
-import locationIcon from "./location.png";
+import locationIcon from "./location.svg";
+import newsCover from "./news_cover.jpg";
+import backIcon from "./previous.svg";
 
-export { locationIcon };
+export { locationIcon, newsCover, backIcon };

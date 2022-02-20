@@ -1,6 +1,7 @@
 import moment from "moment";
 import React from "react";
 import { Link } from "react-router-dom";
+import { newsCover } from "../../assets/images/index.js";
 import { routes } from "../../routes/index.js";
 import { NewsCardWrapper } from "./style.js";
 
@@ -10,7 +11,11 @@ const NewsCard = ({ news }) => {
       {/* pass news data to NEWS_EXPANDED route */}
       <Link to={routes.NEWS_EXPANDED} state={news}>
         <div className="image-con">
-          <img src={news?.image} alt="news_image" />
+          <img
+            src={news?.image}
+            alt="news_image"
+            onError={(e) => (e.currentTarget.src = newsCover)} //fallback image when link is 404
+          />
         </div>
         <div className="text-con">
           <div className="news-title">{news?.title}</div>
