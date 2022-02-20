@@ -6,7 +6,6 @@ import { LoadingSpinner } from "../../common/components/LoadingSpinner";
 import WeatherComp from "../../common/components/WeatherComp";
 import NewsGrid from "../../common/components/NewsGrid";
 import InfiniteScrollComp from "../../common/components/InfiniteScrollComp";
-import { Link } from "react-router-dom";
 
 export const Home = () => {
   // state management

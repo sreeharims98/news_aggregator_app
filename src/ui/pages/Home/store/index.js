@@ -3,6 +3,7 @@ import initialState from "./initialState";
 import actions from "./actions";
 defaults.devtools = true;
 
+//create a store
 const HomeStore = createStore({
   name: "HomeStore",
   initialState,

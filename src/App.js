@@ -12,6 +12,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navbar />
+        {/* Used for some spacing in left and right side */}
         <Row>
           <Col xs={1} sm={2}></Col>
           <Col xs={22} sm={20}>

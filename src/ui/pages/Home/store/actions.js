@@ -4,6 +4,7 @@ import { getLocation } from "../../../common/functions/getLocation";
 import { sortDate } from "../../../common/functions/sort";
 import { getStorage, setStorage } from "../../../common/functions/storage";
 
+//all actions of the store
 const actions = {
   //loading action
   isLoading:

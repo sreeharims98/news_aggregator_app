@@ -28,7 +28,7 @@ export const Navbar = () => {
         <div className="search-here">
           <Search
             placeholder="Search for news"
-            onSearch={onNewsSearch}
+            onSearch={onNewsSearch} //search keyword passed to action
             enterButton
           />
         </div>

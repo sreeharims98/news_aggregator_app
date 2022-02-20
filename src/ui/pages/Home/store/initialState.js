@@ -1,3 +1,4 @@
+//initial state for the store
 const initialState = {
   isLoading: false,
   allNews: [],

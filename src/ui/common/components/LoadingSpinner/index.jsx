@@ -1,3 +1,4 @@
+//loader component
 import React from "react";
 import { Spin } from "antd";
 import { LoadingWrapper } from "./style";

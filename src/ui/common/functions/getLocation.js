@@ -1,3 +1,4 @@
+//get location from user location
 export const getLocation = () => {
   return new Promise((resolve, reject) => {
     var options = {
